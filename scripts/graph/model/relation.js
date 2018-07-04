@@ -6,9 +6,8 @@ define([
     _
 ) {
     return Backbone.Model.extend({
-        initialize: function(label, icon) {
+        initialize: function(label) {
             this.set('label', label);
-            this.set('icon', icon);
         }
     });
 });

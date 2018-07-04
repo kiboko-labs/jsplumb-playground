@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.7.9/css/jsplumbtoolkit-defaults.css">
     <style type="text/css">
 html, body {
     margin: 0;
@@ -14,9 +15,34 @@ html, body {
     height: 100vh;
     position: relative;
 }
-.node {
+.jtk-draggable,
+.jtk-endpoint-anchor {
     position: absolute;
-    display: inline-block;
+}
+
+.node {
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+}
+.node .circle {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    background-color: #eee;
+    padding: 10px;
+}
+.node .circle .fa {
+    display: block;
+    margin: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+.node .label {
+    display: block;
+    margin: 5px;
+    text-align: center;
+    vertical-align: middle;
 }
     </style>
 </head>
