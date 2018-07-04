@@ -31,18 +31,16 @@ requirejs([
     'jsplumb',
     'app/graph/view/node',
     'app/graph/model/node',
-    'app/graph/model/node/database',
-    'app/graph/model/node/input-file',
-    'app/graph/model/node/tmap',
-    'app/graph/model/relation'
+    'app/graph/model/node/camille',
+    'app/graph/model/relation',
+    'app/graph/model/node/test'
 ], function(
     jsPlumb,
     NodeView,
     NodeModel,
-    DatabaseModel,
-    InputFileModel,
-    TMapModel,
-    RelationModel
+    CamilleModel,
+    RelationModel,
+    TestModel
 ) {
     jsPlumb.ready(function() {
         var container = document.querySelector('.container');
@@ -64,58 +62,36 @@ requirejs([
         });
 
         var nodes = [
+
             new NodeView({
-                model: new InputFileModel('CSV'),
+                model: new CamilleModel('camille', 'save'),
                 jsPlumb: instance
             }),
             new NodeView({
-                model: new DatabaseModel('RDBMS'),
+                model: new TestModel('test', 'save'),
                 jsPlumb: instance
             }),
-            new NodeView({
-                model: new TMapModel('TMap'),
-                jsPlumb: instance
-            }),
-            new NodeView({
-                model: new NodeModel('Sit', 'file-export'),
-                jsPlumb: instance
-            }),
-            new NodeView({
-                model: new NodeModel('Amet', 'recycle'),
-                jsPlumb: instance
-            }),
-            new NodeView({
-                model: new NodeModel('Consecutir', 'save'),
-                jsPlumb: instance
-            }),
-            new NodeView({
-                model: new InputFileModel('CSV'),
-                jsPlumb: instance
-            })
+
         ];
 
         nodes.map(function(item){
             item.render()
                 .insertInto(container)
                 .makeDraggable();
+
+
         });
 
         nodes[0].moveTo(100, 100);
-        nodes[1].moveTo(300, 100);
-        nodes[2].moveTo(200, 300);
-        nodes[3].moveTo(100, 500);
-        nodes[4].moveTo(300, 500);
-        nodes[5].moveTo(300, 700);
-        nodes[6].moveTo(400, 100);
+        nodes[0].moveTo(300, 800);
 
-        nodes[0].connectTo(nodes[2], new RelationModel('Relation 0 -> 2'));
-        nodes[1].connectTo(nodes[2], new RelationModel('Relation 1 -> 2'));
+        nodes[0].colorTo("red","blue");
 
-        nodes[6].connectTo(nodes[4], new RelationModel('Relation 6 -> 4'));
+        nodes[1].colorTo("blue","red");
 
-        nodes[2].connectTo(nodes[3], new RelationModel('Relation 2 -> 3'));
-        nodes[2].connectTo(nodes[4], new RelationModel('Relation 2 -> 4'));
+        nodes[0].connectTo(nodes[1], new RelationModel(' 1 -> 2 '));
 
-        nodes[4].connectTo(nodes[5], new RelationModel('Relation 4 -> 5'));
+
+
     });
 });

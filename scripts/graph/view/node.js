@@ -64,6 +64,17 @@ define([
             return this;
         },
 
+        colorTo: function(colorText,colorBack) {
+
+            this.$el.css({
+                'color' : colorText,
+                'background-color' : colorBack,
+            });
+
+            return this;
+        },
+
+
         makeDraggable: function() {
             this.jsPlumb.draggable(this.el, {
                 grid: [10, 10]
@@ -134,6 +145,7 @@ define([
 
             return this;
         },
+
 
         insertInto: function(parentNode) {
             parentNode.appendChild(this.el);
