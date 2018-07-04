@@ -43,59 +43,35 @@ requirejs([
 
         var nodes = [
             new NodeView({
-                model: new NodeModel('Lorem'),
-                parent: container,
-                endpointRender: {
-                    endpoint: "Dot",
-                    anchor: [ "Perimeter", { shape: "Diamond" } ]
-                }
+                model: new NodeModel('Lorem', 'file-import'),
+                parent: container
             }, instance),
             new NodeView({
-                model: new NodeModel('Ipsum'),
-                parent: container,
-                endpointRender: {
-                    endpoint: "Dot",
-                    anchor: [ "Perimeter", { shape: "Diamond" } ]
-                }
+                model: new NodeModel('Ipsum', 'database'),
+                parent: container
             }, instance),
             new NodeView({
-                model: new NodeModel('Ipsum'),
-                parent: container,
-                endpointRender: {
-                    endpoint: "Dot",
-                    anchor: [ "Perimeter", { shape: "Diamond" } ]
-                }
+                model: new NodeModel('Dolor', 'file-export'),
+                parent: container
             }, instance),
             new NodeView({
-                model: new NodeModel('Ipsum'),
-                parent: container,
-                endpointRender: {
-                    endpoint: "Dot",
-                    anchor: [ "Perimeter", { shape: "Diamond" } ]
-                }
+                model: new NodeModel('Sit', 'save'),
+                parent: container
             }, instance)
         ];
 
         nodes.map(function(item){
-            item.render();
+            item.render()
+                .makeDraggable()
+                .makeEndpoint({
+                    endpoint: 'Dot',
+                    anchor: [ 'Perimeter', { shape: 'Diamond' } ]
+                });
         });
 
-        instance.connect({
-            source: nodes[0].endpoint,
-            target: nodes[1].endpoint,
-            connector: [
-                "Bezier", {
-                    curviness: 175
-                }
-            ],
-            paintStyle: {
-                strokeWidth: 5,
-                stroke: 'brown'
-            },
-            overlays: [
-                [ "Arrow", { foldback: 0.2 } ],
-                [ "Label", { cssClass: "labelClass" } ]
-            ]
-        });
+        nodes[0].connectTo(nodes[1], 'Relation 0 -> 1');
+        nodes[1].connectTo(nodes[2], 'Relation 1 -> 2');
+        nodes[2].connectTo(nodes[3], 'Relation 2 -> 3');
+        nodes[3].connectTo(nodes[0], 'Relation 3 -> 0');
     });
 });

@@ -14,14 +14,14 @@ define([
     var Node = Backbone.View.extend({
         template: _.template(
             '<div class="node" id="<%= id %>">' +
-                '<span class="fa fa-database"></span>' +
+                '<span class="fa fa-<%= icon %>"></span>' +
                 '<span class="label"><%= label %></span>' +
             '</div>'
         ),
 
         endpointOptions: {
-            isSource:true,
-            isTarget:true
+            isSource: true,
+            isTarget: true
         },
 
         initialize: function(options, jsPlumbInstance) {
@@ -33,7 +33,7 @@ define([
             this.id = UUID.create();
         },
         
-        render: function () {
+        render: function() {
             this.$el.html(this.template(_.extend(
                 {
                     id: this.id
@@ -41,19 +41,49 @@ define([
                 this.model.attributes
             )));
 
+            this.parent.appendChild(this.el);
+
+            return this;
+        },
+
+        makeDraggable: function() {
+            this.jsPlumb.draggable(this.$el, {
+                grid: [10, 10]
+            });
+
+            return this;
+        },
+
+        makeEndpoint: function(endpointRender) {
             this.endpoint = this.jsPlumb.addEndpoint(
-                this.$el,
-                this.options.endpointRender,
+                this.el,
+                endpointRender,
                 _.extend(
                     Node.endpointOptions,
                     this.options.endpointOptions
                 )
             );
 
-            this.parent.appendChild(this.el);
+            return this;
+        },
 
-            this.jsPlumb.draggable(this.$el, {
-                grid: [10, 10]
+        connectTo: function(node, label) {
+            this.jsPlumb.connect({
+                source: this.endpoint,
+                target: node.endpoint,
+                connector: [
+                    "Bezier", {
+                        curviness: 175
+                    }
+                ],
+                paintStyle: {
+                    strokeWidth: 5,
+                    stroke: 'brown'
+                },
+                overlays: [
+                    [ "Arrow", { foldback: 0.2 } ],
+                    [ "Label", { label: label || 'Connection', cssClass: "labelClass" } ]
+                ]
             });
 
             return this;
