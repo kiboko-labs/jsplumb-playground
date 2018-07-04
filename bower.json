@@ -1,0 +1,17 @@
+{
+  "name": "testing",
+  "homepage": "https://github.com/kiboko-labs/etl-application",
+  "authors": [
+    "Grégory Planchat <gregory@kiboko.fr>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
